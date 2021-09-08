@@ -21,7 +21,7 @@ function App() {
       bloodAlcoholLevel = (grams - burning * time) / (weight * 0.6);
     }
 
-    if (bloodAlcoholLevel < 0) {
+    if (bloodAlcoholLevel < 0 || NaN || Infinity) {
       setResult(0);
     } else {
       setResult(bloodAlcoholLevel);
@@ -34,11 +34,11 @@ function App() {
         <form onSubmit={handleSubmit}>
           <div>
             <label>Weight</label>
-            <input name="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
+            <input name="weight" type="number" required value={weight} onChange={(e) => setWeight(e.target.value)} />
           </div>
           <div>
             <label>Bottles</label>
-            <select type="number" name="bottles" id="" value={bottles} onChange={(e) => setBottles(e.target.value)}>
+            <select type="number" name="bottles" id="" required value={bottles} onChange={(e) => setBottles(e.target.value)}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -54,7 +54,7 @@ function App() {
           </div>
           <div>
             <label>Time</label>
-            <select type="number" name="time" id="" value={time} onChange={(e) => setTime(e.target.value)}>
+            <select type="number" name="time" id="" required value={time} onChange={(e) => setTime(e.target.value)}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -70,7 +70,7 @@ function App() {
           </div>
           <div>
             <label>Gender</label>
-            <input type="radio" name="gender" value="male" onChange={(e) => setGender(e.target.value)} />
+            <input type="radio" name="gender" value="male" defaultChecked onChange={(e) => setGender(e.target.value)} />
             <label>Male</label>
             <input type="radio" name="gender" value="female" onChange={(e) => setGender(e.target.value)} />
             <label>Female</label>

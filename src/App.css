@@ -1,1 +1,17 @@
+body {
+  margin-left: 5%;
+}
 
+label {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+output {
+  font-size: 1.5em;
+  border-top-style: solid;
+}
+button {
+  background-color: blue;
+  color: #fff;
+}
