@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [weight, setWeight] = useState(0);
+  const [weight, setWeight] = useState(90);
   const [bottles, setBottles] = useState(0);
   const [time, setTime] = useState(0);
-  const [gender, setGender] = useState(0);
+  const [gender, setGender] = useState('male');
   const [result, setResult] = useState(0);
 
   function handleSubmit(e) {
@@ -14,14 +14,15 @@ function App() {
     const liters = bottles * 0.33;
     const grams = liters * 8 * 4.5;
     const burning = weight / 10;
+    const gramsLeft = grams - burning * time;
     let bloodAlcoholLevel = 0;
     if (gender === 'male') {
-      bloodAlcoholLevel = (grams - burning * time) / (burning * 0.7);
+      bloodAlcoholLevel = gramsLeft / (weight * 0.7);
     } else {
-      bloodAlcoholLevel = (grams - burning * time) / (weight * 0.6);
+      bloodAlcoholLevel = gramsLeft / (weight * 0.6);
     }
 
-    if (bloodAlcoholLevel < 0 || NaN || Infinity) {
+    if (bloodAlcoholLevel < 0 || isNaN(bloodAlcoholLevel)) {
       setResult(0);
     } else {
       setResult(bloodAlcoholLevel);
@@ -34,11 +35,11 @@ function App() {
         <form onSubmit={handleSubmit}>
           <div>
             <label>Weight</label>
-            <input name="weight" type="number" required value={weight} onChange={(e) => setWeight(e.target.value)} />
+            <input name="weight" type="number" min="1" value={weight} onChange={(e) => setWeight(e.target.value)} />
           </div>
           <div>
             <label>Bottles</label>
-            <select type="number" name="bottles" id="" required value={bottles} onChange={(e) => setBottles(e.target.value)}>
+            <select type="number" name="bottles" id="" value={bottles} onChange={(e) => setBottles(e.target.value)}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -54,7 +55,7 @@ function App() {
           </div>
           <div>
             <label>Time</label>
-            <select type="number" name="time" id="" required value={time} onChange={(e) => setTime(e.target.value)}>
+            <select type="number" name="time" id="" value={time} onChange={(e) => setTime(e.target.value)}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
